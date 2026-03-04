@@ -107,6 +107,7 @@ function addRevealClasses() {
     const targets = [
         '.skill-card',
         '.project-card',
+        '.service-card',
         '.timeline-item',
         '.contact-card',
         '.stat-card',
@@ -115,6 +116,7 @@ function addRevealClasses() {
         '.about-image-wrap',
         '.contact-form',
         '.tools-section',
+        '.ach-card',
     ];
     targets.forEach(sel => {
         document.querySelectorAll(sel).forEach((el, i) => {
@@ -208,3 +210,176 @@ document.querySelectorAll('.project-card').forEach(card => {
 // ─── INIT ─────────────────────────────────────────────────────
 updateActiveNav();
 console.log('🚀 Portfolio loaded — built with ❤️ for Flutter development');
+
+// ─── SERVICES CONSTELLATION CANVAS ────────────────────────────
+(function initServicesCanvas() {
+    const canvas = document.getElementById('servicesCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animId;
+    let W, H;
+    const PARTICLE_COUNT = 55;
+    const MAX_DIST = 140;
+    let particles = [];
+
+    function resize() {
+        W = canvas.width = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+    }
+
+    function randomParticle() {
+        return {
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 1.6 + 0.6,
+        };
+    }
+
+    function init() {
+        resize();
+        particles = Array.from({ length: PARTICLE_COUNT }, randomParticle);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        // Update
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = W;
+            if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H;
+            if (p.y > H) p.y = 0;
+        });
+        // Draw lines
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DIST) {
+                    const alpha = (1 - dist / MAX_DIST) * 0.3;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(100,130,255,${alpha})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        // Draw dots
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(140,160,255,0.8)';
+            ctx.fill();
+        });
+        animId = requestAnimationFrame(draw);
+    }
+
+    // Only animate when section is visible
+    const section = document.getElementById('services');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                if (!animId) { init(); draw(); }
+            } else {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        });
+    }, { threshold: 0.05 });
+    if (section) obs.observe(section);
+
+    window.addEventListener('resize', () => {
+        resize();
+        particles = Array.from({ length: PARTICLE_COUNT }, randomParticle);
+    });
+})();
+// ─── ACHIEVEMENTS CONSTELLATION CANVAS ───────────────────────
+(function initAchievementsCanvas() {
+    const canvas = document.getElementById('achievementsCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animId;
+    let W, H;
+    const PARTICLE_COUNT = 50;
+    const MAX_DIST = 130;
+    let particles = [];
+
+    function resize() {
+        W = canvas.width = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+    }
+
+    function randomParticle() {
+        return {
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: Math.random() * 1.5 + 0.4,
+        };
+    }
+
+    function init() {
+        resize();
+        particles = Array.from({ length: PARTICLE_COUNT }, randomParticle);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = W;
+            if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H;
+            if (p.y > H) p.y = 0;
+        });
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DIST) {
+                    const alpha = (1 - dist / MAX_DIST) * 0.28;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(100,130,255,${alpha})`;
+                    ctx.lineWidth = 0.7;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(140,160,255,0.75)';
+            ctx.fill();
+        });
+        animId = requestAnimationFrame(draw);
+    }
+
+    const section = document.getElementById('achievements');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                if (!animId) { init(); draw(); }
+            } else {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        });
+    }, { threshold: 0.05 });
+    if (section) obs.observe(section);
+
+    window.addEventListener('resize', () => {
+        resize();
+        particles = Array.from({ length: PARTICLE_COUNT }, randomParticle);
+    });
+})();

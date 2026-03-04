@@ -992,20 +992,6 @@ button {
   line-height: 1.5;
 }
 
-.skill-bar {
-  height: 4px;
-  background: var(--bg-3);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.skill-fill {
-  height: 100%;
-  background: var(--gradient);
-  border-radius: 4px;
-  width: 0;
-  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 .tools-section {
   text-align: center;
@@ -1575,6 +1561,459 @@ button {
 }
 
 /* ============================================================
+   SERVICES  — premium constellation design
+   ============================================================ */
+.services-section {
+  background: #0a0c14;
+  position: relative;
+  overflow: visible;
+  padding: 100px 0;
+}
+
+.services-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.services-badge {
+  display: inline-block;
+  padding: 6px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 18px;
+  backdrop-filter: blur(6px);
+}
+
+.services-heading {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+}
+
+/* 4-column card grid */
+.services-grid-new {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Base card */
+.svc-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 24px;
+  padding: 36px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.svc-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 80% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.svc-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-8px);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+}
+
+/* Active card — gradient top border line */
+.svc-card-active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.svc-card-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, #6c63ff, #ff8c00);
+  border-radius: 0 0 4px 4px;
+  z-index: 1;
+}
+
+/* Icon box — rounded square, gradient fill */
+.svc-icon-box {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
+.svc-icon-purple {
+  background: linear-gradient(135deg, #7b5ea7, #6c63ff);
+  box-shadow: 0 10px 30px rgba(108, 99, 255, 0.4);
+}
+
+.svc-icon-orange {
+  background: linear-gradient(135deg, #e85d04, #f48c06);
+  box-shadow: 0 10px 30px rgba(244, 140, 6, 0.4);
+}
+
+.svc-icon-blue {
+  background: linear-gradient(135deg, #1a6fc4, #4cc9f0);
+  box-shadow: 0 10px 30px rgba(76, 201, 240, 0.35);
+}
+
+.svc-icon-teal {
+  background: linear-gradient(135deg, #0f7173, #2ec4b6);
+  box-shadow: 0 10px 30px rgba(46, 196, 182, 0.35);
+}
+
+.svc-icon-box svg {
+  flex-shrink: 0;
+}
+
+/* Card text */
+.svc-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.svc-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.8;
+  flex: 1;
+}
+
+/* Tags / chips */
+.svc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.svc-tag {
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s;
+}
+
+.svc-card:hover .svc-tag {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* View Pricing CTA */
+.services-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 52px;
+}
+
+.btn-view-pricing {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 44px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+}
+
+.btn-view-pricing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.25), rgba(255, 140, 0, 0.25));
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 50px;
+}
+
+.btn-view-pricing:hover::before {
+  opacity: 1;
+}
+
+.btn-view-pricing:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 44px rgba(108, 99, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-view-pricing svg {
+  transition: transform 0.3s;
+}
+
+.btn-view-pricing:hover svg {
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .services-grid-new {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid-new {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .svc-card {
+    padding: 28px 22px;
+  }
+}
+
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials-section {
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+/* Fade edges mask */
+.testimonials-track-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.testimonials-track-wrap::before,
+.testimonials-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.testimonials-track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-2), transparent);
+}
+
+.testimonials-track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-2), transparent);
+}
+
+/* Scrolling track */
+.testimonials-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: marqueeLeft 40s linear infinite;
+  will-change: transform;
+}
+
+.testimonials-track-reverse {
+  animation: marqueeRight 38s linear infinite;
+}
+
+.testimonials-track:hover,
+.testimonials-track-reverse:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Individual card */
+.testi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 26px 24px;
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.testi-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.testi-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 12px 40px rgba(255, 59, 48, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Big opening quote */
+.testi-quote {
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--primary);
+  opacity: 0.7;
+  margin-bottom: -8px;
+  font-family: Georgia, serif;
+}
+
+/* Review text */
+.testi-text {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  line-height: 1.75;
+  flex: 1;
+}
+
+/* Footer row — avatar + name/role + stars */
+.testi-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.testi-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.testi-av1 {
+  background: linear-gradient(135deg, #FF3B30, #ff6b35);
+}
+
+.testi-av2 {
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+}
+
+.testi-av3 {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+.testi-av4 {
+  background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.testi-av5 {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.testi-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.testi-role {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  line-height: 1.3;
+}
+
+.testi-stars {
+  margin-left: auto;
+  color: #f59e0b;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+/* Responsive — just adjust fade width */
+@media (max-width: 768px) {
+
+  .testimonials-track-wrap::before,
+  .testimonials-track-wrap::after {
+    width: 60px;
+  }
+
+  .testi-card {
+    width: 290px;
+    padding: 22px 20px 20px;
+  }
+}
+
+/* ============================================================
    CONTACT
    ============================================================ */
 .contact-grid {
@@ -1989,4 +2428,242 @@ button {
 
 .contact-card-link:hover .contact-value {
   color: var(--primary);
+}
+
+/* ============================================================
+   ACHIEVEMENTS & CERTIFICATIONS
+   ============================================================ */
+.achievements-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Full-size constellation canvas behind the section */
+.achievements-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Pill badge — "RECOGNITION" */
+.achievements-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 18px;
+  font-family: 'Fira Code', monospace;
+}
+
+/* 3 × 2 grid of achievement cards */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Individual card */
+.ach-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: default;
+}
+
+.ach-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: radial-gradient(ellipse at 70% 0%, rgba(255, 255, 255, 0.035) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.ach-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* Circular gradient icon wrapper */
+.ach-icon-wrap {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+/* Icon color variants */
+.ach-icon-orange {
+  background: linear-gradient(135deg, #e85d04, #f48c06);
+  box-shadow: 0 10px 28px rgba(244, 140, 6, 0.35);
+}
+
+.ach-icon-blue {
+  background: linear-gradient(135deg, #1a6fc4, #4cc9f0);
+  box-shadow: 0 10px 28px rgba(76, 201, 240, 0.3);
+}
+
+.ach-icon-purple {
+  background: linear-gradient(135deg, #7b5ea7, #6c63ff);
+  box-shadow: 0 10px 28px rgba(108, 99, 255, 0.35);
+}
+
+.ach-icon-red {
+  background: linear-gradient(135deg, #cc2e25, #FF3B30);
+  box-shadow: 0 10px 28px rgba(255, 59, 48, 0.32);
+}
+
+.ach-icon-teal {
+  background: linear-gradient(135deg, #0f7173, #2ec4b6);
+  box-shadow: 0 10px 28px rgba(46, 196, 182, 0.3);
+}
+
+.ach-icon-indigo {
+  background: linear-gradient(135deg, #312e81, #6366f1);
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.32);
+}
+
+/* Card text */
+.ach-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.ach-org {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Date chip — always orange/accent */
+.ach-date {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: #f48c06;
+  margin-top: 4px;
+}
+
+.ach-date-active {
+  color: #f48c06;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ach-card {
+    padding: 26px 22px;
+  }
+}
+/* ========== EDUCATION SECTION ========== */
+.edu-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 860px;
+  margin: 0 auto;
+  transition: border-color 0.3s;
+}
+.edu-card:hover { border-color: var(--accent); }
+
+.edu-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.edu-degree {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-1);
+  margin: 0 0 8px;
+}
+
+.edu-school {
+  font-size: 1rem;
+  color: var(--text-2);
+  margin: 0 0 8px;
+}
+
+.edu-gpa {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+}
+
+.edu-badge {
+  background: rgba(0, 122, 255, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(0, 122, 255, 0.3);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.edu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: 28px 0;
+  border-radius: 1px;
+}
+
+.edu-desc {
+  color: var(--text-2);
+  line-height: 1.75;
+  margin: 0 0 24px;
+}
+
+.edu-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .edu-degree { font-size: 1.3rem; }
+  .edu-card { padding: 24px; }
 }
